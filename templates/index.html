@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1b1e;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        html {
+            background-color: #1a1b1e;
+        }
+        .navbar {
+            background-color: #4a7fa5;
+        }
+        .card {
+            background-color: #25262b;
+            border: none;
+            border-radius: 8px;
+        }
+        .list-group-item {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #3d3d3d;
+        }
+        .form-control {
+            background-color: #3d3d3d;
+            border-color: #4d4d4d;
+            color: #e0e0e0;
+        }
+        .form-control::placeholder {
+            color: #a0a0a0;
+        }
+        .form-control:focus {
+            background-color: #3a3a4e;
+            color: #e0e0e0;
+            border-color: #4a7fa5;
+            box-shadow: none;
+        }
+        .card p, .card span {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg mb-4">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="/">ToDo App</a>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-light btn-sm">Login</button>
+                <button class="btn btn-light btn-sm">Register</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Tasks -->
+            <div class="col-lg-8">
+                <!-- Add Task Form -->
+                <div class="card p-3 mb-4">
+                    <form action="/" method="post" class="d-flex gap-2">
+                        <input type="text" name="task" placeholder="Add a new task..." class="form-control">
+                        <button type="submit" class="btn btn-primary px-4">Add</button>
+                    </form>
+                </div>
+
+                <!-- Task List -->
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <div class="card mb-3 p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ loop.index }}. {{ task }}</span>
+                                <form action="/delete/{{ loop.index }}" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="card p-3 text-center text-secondary">
+                        No tasks yet — add one above!
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card p-3">
+                    <h5 class="text-white">Summary</h5>
+                    <hr style="border-color: #4a4a5e;">
+                    <p class="text-secondary mb-1">Total tasks: {{ tasks|length }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
