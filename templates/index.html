@@ -78,8 +78,8 @@
                     {% for task in tasks %}
                         <div class="card mb-3 p-3">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>{{ loop.index }}. {{ task }}</span>
-                                <form action="/delete/{{ loop.index }}" method="post">
+                                <span>{{ loop.index }}. {{ task.title }}</span>
+                                <form action="/delete/{{ task.id }}" method="post">
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </div>
